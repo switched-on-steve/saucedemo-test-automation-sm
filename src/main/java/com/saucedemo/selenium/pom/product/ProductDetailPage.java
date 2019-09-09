@@ -1,9 +1,10 @@
 package com.saucedemo.selenium.pom.product;
 
+import com.saucedemo.selenium.pom.SauceDemoPom;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ProductDetailForm extends ProductForm {
+public class ProductDetailPage extends SauceDemoPom {
     @FindBy(className = "inventory_details_name")
     private WebElement name;
 
@@ -31,14 +32,18 @@ public class ProductDetailForm extends ProductForm {
         return price.getText();
     }
 
-    public void removeProduct(String removeText) {
+    public ProductDetailPage removeProduct(String removeText) {
         if (addRomoveButton.getText().toLowerCase().equals(removeText.toLowerCase()))
             addRomoveButton.click();
+
+        return this;
     }
 
-    public void addProduct(String addText) {
+    public ProductDetailPage addProduct(String addText) {
         if (addRomoveButton.getText().toLowerCase().equals(addText.toLowerCase()))
             addRomoveButton.click();
+
+        return this;
     }
 
     public void goBack() {

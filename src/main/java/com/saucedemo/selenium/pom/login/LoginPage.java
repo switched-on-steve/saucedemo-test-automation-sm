@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.saucedemo.util.Globals.SAUCE_DEMO_URL;
 
-public class LoginForm extends SauceDemoPom {
+public class LoginPage extends SauceDemoPom {
     @FindBy(id = "user-name")
     private WebElement userNameField;
 
@@ -19,32 +19,29 @@ public class LoginForm extends SauceDemoPom {
     @FindBy(className = "btn_action")
     private WebElement loginButton;
 
-    public void open() {
+    public LoginPage open() {
         driver.get(SAUCE_DEMO_URL);
+        return this;
     }
 
     public String getCurrentPageUrl() {
         return driver.getCurrentUrl();
     }
 
-    public void setUserName(String name) {
+    public LoginPage setUserName(String name) {
         userNameField.clear();
         userNameField.sendKeys(name);
+        return this;
     }
 
-    public void setPassword(String pass) {
+    public LoginPage setPassword(String pass) {
         passwordField.clear();
         passwordField.sendKeys(pass);
+        return this;
     }
 
     public void login() {
         loginButton.click();
-    }
-
-    public void login(String name, String pass) {
-        setUserName(name);
-        setPassword(pass);
-        login();
     }
 
     public boolean isErrorMsgExist(String errorMessage) {

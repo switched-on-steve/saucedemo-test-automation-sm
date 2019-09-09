@@ -22,21 +22,35 @@ public class CheckoutStepOnePage extends SauceDemoPom {
     @FindBy(className = "cart_button")
     private WebElement continueButton;
 
-    public void open() {
+    public CheckoutStepOnePage open() {
         driver.get(SAUCE_DEMO_CHECKOUT_STEP_ONE_PAGE_URL);
+        return this;
     }
 
-    public void fillUp(CheckoutStepOneDto checkoutStepOneDto) {
+    public CheckoutStepOnePage setFirstName(String firstName) {
         firstNameField.clear();
-        firstNameField.sendKeys(checkoutStepOneDto.getFirstName());
-        lastNameField.clear();
-        lastNameField.sendKeys(checkoutStepOneDto.getLastName());
-        zipCodeField.clear();
-        zipCodeField.sendKeys(checkoutStepOneDto.getZipCode());
+        firstNameField.sendKeys(firstName);
+
+        return this;
     }
 
-    public void goNext() {
+    public CheckoutStepOnePage setLastName(String lastName) {
+        lastNameField.clear();
+        lastNameField.sendKeys(lastName);
+
+        return this;
+    }
+
+    public CheckoutStepOnePage setZipCode(String zipCode) {
+        zipCodeField.clear();
+        zipCodeField.sendKeys(zipCode);
+
+        return this;
+    }
+
+    public CheckoutStepOnePage goNext() {
         continueButton.click();
+        return this;
     }
 
     public boolean isErrorMsgExist(String errorMessage) {

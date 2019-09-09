@@ -31,11 +31,16 @@ public class CheckoutStepOnePageTest extends SauceDemoTest {
     }
 
     public void goToCheckoutStepOneFormAndFillUp(CheckoutStepOneDto checkoutStepOneDto) {
-        loginPage.open();
-        loginPage.login(checkoutStepOneDto.getUserName(), checkoutStepOneDto.getPassword());
-        checkoutStepOnePage.open();
-        checkoutStepOnePage.fillUp(checkoutStepOneDto);
-        checkoutStepOnePage.goNext();
+        loginPage.open()
+                .setUserName(checkoutStepOneDto.getUserName())
+                .setPassword(checkoutStepOneDto.getPassword())
+                .login();
+
+        checkoutStepOnePage.open()
+                           .setFirstName(checkoutStepOneDto.getFirstName())
+                           .setLastName(checkoutStepOneDto.getLastName())
+                           .setZipCode(checkoutStepOneDto.getZipCode())
+                           .goNext();
     }
 
     @Test(testName = "TC-1", description = "First Name is required", dataProvider = "getCheckoutStepOne")

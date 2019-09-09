@@ -1,9 +1,9 @@
 package com.saucedemo.automation.product;
 
 import com.saucedemo.automation.SauceDemoTest;
-import com.saucedemo.selenium.pom.login.LoginForm;
+import com.saucedemo.selenium.pom.login.LoginPage;
 import com.saucedemo.selenium.pom.product.ProductDto;
-import com.saucedemo.selenium.pom.product.ProductForm;
+import com.saucedemo.selenium.pom.product.ProductPage;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -12,15 +12,15 @@ import java.lang.reflect.Method;
 import static com.saucedemo.automation.DataProviderUtils.getDataObjectArray;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductFormTest extends SauceDemoTest {
+public class ProductPageTest extends SauceDemoTest {
     private static String FILE_NAME = "product/product.csv";
-    private LoginForm loginForm;
-    private ProductForm productsForm;
+    private LoginPage loginPage;
+    private ProductPage productsForm;
 
     @Override
     public void init() {
-        loginForm = createPomInstance(LoginForm.class);
-        productsForm = createPomInstance(ProductForm.class);
+        loginPage = createPomInstance(LoginPage.class);
+        productsForm = createPomInstance(ProductPage.class);
     }
 
     @DataProvider(name = "getProducts")
@@ -31,10 +31,10 @@ public class ProductFormTest extends SauceDemoTest {
     }
 
     public void goToProductForm(String name, String pass) {
-        loginForm.open();
-        loginForm.setUserName(name);
-        loginForm.setPassword(pass);
-        loginForm.login();
+        loginPage.open()
+                .setUserName(name)
+                .setPassword(pass)
+                .login();
     }
 
     public void goToProductFormAndSetSortOrder(String name, String pass, String sortOrderText) {
@@ -69,16 +69,20 @@ public class ProductFormTest extends SauceDemoTest {
     @Test(testName = "TC-5", description = "No product is added in the shopping cart", dataProvider = "getProducts")
     public void testNoProductInShoppingCart(ProductDto productsDto) {
         goToProductForm(productsDto.getUserName(), productsDto.getPassword());
-        productsForm.addAllProducts(productsDto.getLabelForAdd());
-        productsForm.removeAllProducts(productsDto.getLabelForRemove());
+
+        productsForm.addAllProducts(productsDto.getLabelForAdd())
+                    .removeAllProducts(productsDto.getLabelForRemove());
+
         assertThat(productsForm.countOfProductsInShoppingCart() == 0).isTrue();
     }
 
     @Test(testName = "TC-6", description = "All product are added in the shopping cart", dataProvider = "getProducts")
     public void testAllProductsInShoppingCart(ProductDto productsDto) {
         goToProductForm(productsDto.getUserName(), productsDto.getPassword());
-        productsForm.removeAllProducts(productsDto.getLabelForRemove());
-        productsForm.addAllProducts(productsDto.getLabelForAdd());
+
+        productsForm.removeAllProducts(productsDto.getLabelForRemove())
+                    .addAllProducts(productsDto.getLabelForAdd());
+
         assertThat(productsForm.countOfProductsInShoppingCart() == productsForm.countOfProducts()).isTrue();
     }
 }

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class ProductForm extends SauceDemoPom {
+public class ProductPage extends SauceDemoPom {
     @FindBy(className = "product_sort_container")
     private WebElement productSortDropdown;
 
@@ -26,6 +26,7 @@ public class ProductForm extends SauceDemoPom {
     private boolean isInAscending(Object prevElem, Object currElem) {
         if (prevElem instanceof String)
             return ((String)prevElem).compareTo((String)currElem) < 0;
+
         return (Double)prevElem < (Double)currElem;
     }
 
@@ -80,31 +81,37 @@ public class ProductForm extends SauceDemoPom {
     public void removeProductAtIndexOf(int index, String removeText) {
         WebElement productButton = products.get(index).findElement(By.className("btn_inventory"));
         String label = productButton.getText().toLowerCase();
+
         if (label.equals(removeText.toLowerCase()))
             productButton.click();
     }
 
-    public void removeAllProducts(String removeText) {
+    public ProductPage removeAllProducts(String removeText) {
         int count = countOfProducts();
 
         for (int i = 0; i < count; i++) {
             removeProductAtIndexOf(i, removeText);
         }
+
+        return this;
     }
 
     public void addProductAtIndexOf(int index, String addText) {
         WebElement productButton = products.get(index).findElement(By.className("btn_inventory"));
         String label = productButton.getText().toLowerCase();
+
         if (label.equals(addText.toLowerCase()))
             productButton.click();
     }
 
-    public void addAllProducts(String addText) {
+    public ProductPage addAllProducts(String addText) {
         int count = countOfProducts();
 
         for (int i = 0; i < count; i++) {
             addProductAtIndexOf(i, addText);
         }
+
+        return this;
     }
 
     public int countOfProductsInShoppingCart() {

@@ -7,6 +7,7 @@ import com.saucedemo.selenium.pom.TestCaseDto;
 import com.saucedemo.util.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.testng.ITestContext;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
@@ -45,6 +46,11 @@ public abstract class SauceDemoTest {
                 ctx.setAttribute("description", testCaseDto.getTestCaseDescription());
             }
         }
+    }
+
+    @AfterTest
+    public void AfterTest() {
+        sauceDemoAppBrowser.closeBrowser();
     }
 
     public SauceDemoAppBrowser getSauceDemoAppBrowser() {

@@ -29,13 +29,13 @@ public class SauceDemoAppBrowser {
 
         if (SystemUtils.IS_OS_LINUX) {
             System.setProperty("webdriver.chrome.driver", "chrome-driver/linux/chromedriverGt65");
-            System.setProperty("webdriver.gecko.driver", "gecko-driver/linux/geckodriver-v0.23.0-linux64");
+            System.setProperty("webdriver.gecko.driver", "gecko-driver/linux/geckodriver-v0.24.0-linux64");
         } else if (SystemUtils.IS_OS_MAC) {
             System.setProperty("webdriver.chrome.driver", "chrome-driver/mac/chromedriver");
-            System.setProperty("webdriver.gecko.driver", "gecko-driver/mac/geckodriver-v0.23.0");
+            System.setProperty("webdriver.gecko.driver", "gecko-driver/mac/geckodriver-v0.24.0-macos");
         } else if (SystemUtils.IS_OS_WINDOWS) {
             System.setProperty("webdriver.chrome.driver", "chrome-driver\\windows\\chromedriver.exe");
-            System.setProperty("webdriver.gecko.driver", "gecko-driver\\windows\\geckodriver-v0.23.0-win64.exe");
+            System.setProperty("webdriver.gecko.driver", "gecko-driver\\windows\\geckodriver-v0.24.0-win64.exe");
         }
 
         if (browserType.equals(BrowserType.CHROME)) {
@@ -57,6 +57,10 @@ public class SauceDemoAppBrowser {
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    public void closeBrowser() {
+        driver.close();
     }
 
     public static BrowserType getBrowserType() {
